@@ -2,10 +2,13 @@ import { useState } from "react";
 import Navbar from "./components/Navbar";
 import ProductGrid from "./components/ProductGrid";
 import Cart from "./components/Cart";
+import AdminOrders from "./components/AdminOrders";
 
 export default function App() {
   const [cartItems, setCartItems] = useState([]);
   const [showCart, setShowCart] = useState(false);
+
+  const isAdmin = window.location.pathname === "/admin";
 
   const addToCart = (product) => {
     setCartItems((prev) => {
@@ -29,6 +32,8 @@ export default function App() {
       prev.map((i) => (i._id === id ? { ...i, qty } : i))
     );
   };
+
+  if (isAdmin) return <AdminOrders />;
 
   return (
     <div className="min-h-screen bg-amber-50">
